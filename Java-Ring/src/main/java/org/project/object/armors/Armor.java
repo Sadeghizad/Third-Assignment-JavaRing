@@ -38,6 +38,10 @@ public abstract class Armor implements Object {
         return durability;
     }
 
+    public void reduceDurability(int durabilityCost) {
+        this.durability-=durabilityCost;
+    }
+
     public int getWeight() {
         return weight;
     }

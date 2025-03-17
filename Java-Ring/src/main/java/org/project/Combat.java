@@ -1,6 +1,7 @@
 package org.project;
 
 import org.project.entity.enemies.Enemy;
+import org.project.entity.enemies.Skeleton;
 import org.project.entity.players.Player;
 import org.project.location.Location;
 
@@ -28,24 +29,56 @@ public class Combat {
         }
 
         System.out.print("Enter the number of the enemy you wish to attack: ");
-        int enemyChoice = scanner.nextInt() - 1;
-        scanner.nextLine();
+        int enemyChoice;
+        Enemy selectedEnemy = null;
 
-        if (enemyChoice < 0 || enemyChoice >= enemies.size()) {
-            System.out.println("\n❌ Invalid choice!");
-            return;
+// Keep asking until a valid choice is made
+        while (true) {
+            System.out.print("Enter the number of the enemy you wish to attack: ");
+            enemyChoice = scanner.nextInt() - 1;
+            scanner.nextLine();
+
+            if (enemyChoice >= 0 && enemyChoice < enemies.size()) {
+                selectedEnemy = enemies.get(enemyChoice);
+                break;
+            } else {
+                System.out.println("\n❌ Invalid choice! Try again.");
+            }
         }
 
-        Enemy selectedEnemy = enemies.get(enemyChoice);
         playerAttack(player, selectedEnemy, scanner);
 
 
         // Remove defeated enemies
-        enemies.removeIf(enemy -> enemy.getHp() <= 0);
-
+        enemies.removeIf(enemy -> {
+            if (enemy.getHp() <= 0) {
+                if (enemy instanceof Skeleton) {
+                    Skeleton skeleton = (Skeleton) enemy;
+                    if (!skeleton.hasResurrected()) {
+                        skeleton.resurrect();
+                        System.out.println("\n☠️ The " + skeleton.getEnemyType() + " pulls itself back together!");
+                        return false; // Don't remove, it resurrects
+                    }
+                }
+                return true; // Remove all other dead enemies
+            }
+            return false;
+        });
         if (enemies.isEmpty()) {
             System.out.println("\n🏆 Victory! The area is now safe.");
         }
+
+        // Regenerate FP & MP, and reduce cooldowns each turn
+        player.regainFP(5);  // Passive stamina regain
+        player.fillMana(3);  // Passive mana regain
+        player.reduceSuperCooldown(); // Reduce super ability cooldown
+
+        for (Enemy enemy : enemies) {
+            enemy.regainFP(3);
+            enemy.fillMana(2);
+            enemy.reduceSuperCooldown();
+        }
+
         // Enemy's turn if the player successfully attacked
         if (selectedEnemy.getHp() > 0) {
             enemyTurn(enemies, player);
@@ -85,12 +118,15 @@ public class Combat {
                 break;
 
             case 3:
-                if (player.getFp() >= 25 && player.getMp() >= 20) {
+                if (player.getSuperAbilityCooldown() == 0 && player.getFp() >= 25 && player.getMp() >= 20) {
                     System.out.println("\n⚡ You unleash your ultimate power!");
                     enemy.takeDamage(player.getWeapon().getDamage() * 2);
                     player.useStamina(25);
                     player.useMana(20);
+                    player.setSuperAbilityCooldown(3); // Set cooldown
                     attackSuccessful = true;
+                } else if (player.getSuperAbilityCooldown() > 0) {
+                    System.out.println("\n❌ Your super ability is on cooldown for " + player.getSuperAbilityCooldown() + " more turns!");
                 } else {
                     System.out.println("\n❌ Not enough resources for a super ability!");
                 }
@@ -116,10 +152,11 @@ public class Combat {
                 break;
 
             case 1:
-                if (attackingEnemy.getFp() >= 15) {
-                    System.out.println("💥 " + attackingEnemy.getEnemyType() + " uses a heavy attack!");
+                if (attackingEnemy.getSuperAbilityCooldown() == 0 && attackingEnemy.getFp() >= 15) {
+                    System.out.println("💥 " + attackingEnemy.getEnemyType() + " unleashes a devastating attack!");
                     player.takeDamage(attackingEnemy.getWeapon().getDamage() * 2);
                     attackingEnemy.useStamina(15);
+                    attackingEnemy.setSuperAbilityCooldown(3);
                 } else {
                     System.out.println(attackingEnemy.getEnemyType() + " tried to use a heavy attack but lacked stamina!");
                 }
