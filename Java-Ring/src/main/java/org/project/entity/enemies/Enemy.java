@@ -8,13 +8,21 @@ public abstract class Enemy implements Entity {
     Weapon weapon;
     protected String enemyType;
     private int hp;
+    private int maxHp;
     private int mp;
+    private int maxMp;
     private int fp;
+    private int maxFp;
+    private int superAbilityCooldown;
+
 
     public Enemy(int hp, int mp, int fp, Weapon weapon, String enemyType) {
         this.hp = hp;
+        this.maxHp = hp;
         this.mp = mp;
+        this.maxMp = mp;
         this.fp = fp;
+        this.maxFp = fp;
         this.weapon = weapon;
         this.enemyType = enemyType;
     }
@@ -57,15 +65,21 @@ public abstract class Enemy implements Entity {
     public int getMp() {
         return mp;
     }
+    public int getFp() {
+        return fp;
+    }
     @Override
     public int getMaxHp() {
-        return hp;
+        return maxHp;
     }
-
+    @Override
     public int getMaxMp() {
-        return mp;
+        return maxMp;
     }
-
+    @Override
+    public int getMaxFp() {
+        return maxFp;
+    }
     public Weapon getWeapon() {
         return weapon;
     }

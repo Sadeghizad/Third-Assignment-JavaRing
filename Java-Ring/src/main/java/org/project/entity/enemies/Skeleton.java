@@ -5,8 +5,9 @@ import org.project.object.weapons.Sword;
 
 // TODO: UPDATE IMPLEMENTATION
 public class Skeleton extends Enemy{
+    private boolean resurrected = false;
     public Skeleton() {
-        super(50, 20, new Sword()); // Set type name
+        super(50, 0,30 , new Sword(),"Skeleton"); // Set type name
     }
 
     @Override

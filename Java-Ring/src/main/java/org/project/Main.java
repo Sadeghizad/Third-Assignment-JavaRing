@@ -66,7 +66,7 @@ public class Main {
                 break;
             } else if (choice == 2) {
                 System.out.println("\n⚔️ You prepare your weapon, scanning the wasteland for enemies...");
-                fight(); // Placeholder function
+                Combat.startFight(player, currentLocation, scanner);
             } else if (choice == 1) {
                 // Show available locations
                 System.out.println("\nAvailable Paths:");

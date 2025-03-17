@@ -25,6 +25,12 @@ public interface Entity {
 
     int getMaxFP();
 
+    int getMaxHp();
+
+    int getMaxMp();
+
+    int getMaxFp();
+
 //    Object getObject();
 //    Object lost();
 }

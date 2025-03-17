@@ -14,6 +14,7 @@ public abstract class Player implements Entity{
     private int maxFP;
     private int mp;
     private int maxMP;
+    private int superAbilityCooldown;
 
     public Player(String name, int hp, int mp, Weapon weapon, Armor armor) {
         this.name = name;
@@ -64,7 +65,14 @@ public abstract class Player implements Entity{
             mp = maxMP;
         }
     }
-
+    @Override
+    public void useMana(int mana) {
+        mp-=mana;
+    }
+    @Override
+    public void useStamina(int stamina) {
+        fp-=stamina;
+    }
 
     public String getName() {
         return name;
