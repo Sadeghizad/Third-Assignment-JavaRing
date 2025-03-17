@@ -1,9 +1,10 @@
 package org.project.object.weapons;
 
 import org.project.entity.Entity;
+import org.project.object.Object;
 
 // TODO: UPDATE IMPLEMENTATION
-public abstract class Weapon {
+public abstract class Weapon implements Object {
     private int damage;
     private int manaCost;
 
@@ -21,6 +22,11 @@ public abstract class Weapon {
         target.takeDamage(damage);
     }
 
+    //    @Override
+//    public void give(Entity target,Entity giver) {
+//        target.getObject(this.clone());
+//        giver.lost();
+//    }
     public int getDamage() {
         return damage;
     }

@@ -4,13 +4,14 @@ import org.project.entity.Entity;
 import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
-// TODO: UPDATE IMPLEMENTATION
-public abstract class Player {
+public abstract class Player implements Entity{
     protected String name;
     Weapon weapon;
     Armor armor;
     private int hp;
     private int maxHP;
+    private int fp;
+    private int maxFP;
     private int mp;
     private int maxMP;
 
@@ -18,6 +19,7 @@ public abstract class Player {
         this.name = name;
         this.hp = hp;
         this.mp = mp;
+        this.fp = fp;
 
         this.weapon = weapon;
         this.armor = armor;
@@ -44,6 +46,14 @@ public abstract class Player {
         hp += health;
         if (hp > maxHP) {
             hp = maxHP;
+        }
+    }
+
+    @Override
+    public void regainFP(int stamina) {
+        fp += stamina;
+        if (fp > maxFP) {
+            fp = maxFP;
         }
     }
 
@@ -76,6 +86,15 @@ public abstract class Player {
     @Override
     public int getMaxMP() {
         return maxMP;
+    }
+
+    public int getFp() {
+        return fp;
+    }
+
+    @Override
+    public int getMaxFP() {
+        return maxFP;
     }
 
     public Weapon getWeapon() {

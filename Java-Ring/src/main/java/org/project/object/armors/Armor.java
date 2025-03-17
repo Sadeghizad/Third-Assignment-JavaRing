@@ -1,11 +1,13 @@
 package org.project.object.armors;
+import org.project.object.Object;
 
 // TODO: UPDATE IMPLEMENTATION
-public abstract class Armor {
+public abstract class Armor implements Object {
     private int defense;
     private int maxDefense;
     private int durability;
     private int maxDurability;
+    private int weight;
 
     private boolean isBroke;
 
@@ -24,7 +26,7 @@ public abstract class Armor {
     // TODO: (BONUS) UPDATE THE REPAIR METHOD
     public void repair() {
         isBroke = false;
-        defense = maxDefense;
+        defense = (int)(0.8*maxDefense);
         durability = maxDurability;
     }
 
@@ -34,6 +36,10 @@ public abstract class Armor {
 
     public int getDurability() {
         return durability;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 
     public boolean isBroke() {

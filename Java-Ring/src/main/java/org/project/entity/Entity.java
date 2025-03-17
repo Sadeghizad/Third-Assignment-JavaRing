@@ -1,5 +1,7 @@
 package org.project.entity;
 
+import org.project.object.Object;
+
 public interface Entity {
     void attack(Entity target);
 
@@ -9,13 +11,20 @@ public interface Entity {
 
     void fillMana(int mana);
 
+    void regainFP(int stamina);
+
     void takeDamage(int damage);
+
+    void useMana(int mana);
+
+    void useStamina(int stamina);
 
     int getMaxHP();
 
     int getMaxMP();
 
-    /*
-    TODO: ADD OTHER REQUIRED AND BONUS METHODS
-    */
+    int getMaxFP();
+
+//    Object getObject();
+//    Object lost();
 }

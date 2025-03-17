@@ -3,7 +3,7 @@ package org.project.object.consumables;
 import org.project.entity.Entity;
 
 // TODO: UPDATE IMPLEMENTATION
-public class Flask {
+public class HPFlask extends Consumable{
     /*
     THIS IS AN EXAMPLE OF A CONSUMABLE DESIGN.
     */
@@ -14,3 +14,8 @@ public class Flask {
         target.heal(target.getMaxHP() / 10);
     }
 }
+// extras:
+// MPflask
+// Blastingjar
+// throwingknife
+// wonderflask
