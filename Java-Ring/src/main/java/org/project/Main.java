@@ -3,6 +3,8 @@ package org.project;
 import org.project.entity.players.Knight;
 import org.project.entity.players.Player;
 import org.project.location.Location;
+import org.project.object.armors.KnightArmor;
+import org.project.object.weapons.Sword;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +50,7 @@ public class Main {
 //                break;
             default:
                 System.out.println("❌ Invalid choice! Defaulting to Knight.");
-                player = new Knight("The Knight of Light", 100, 50, null, null);
+                player = new Knight("The Knight of Light", 100, 50, 30, 4,new Sword(),new KnightArmor());
         }
         while (running) {
             System.out.println("\nWelcome to the " + currentLocation.getName()+"\n     \""+currentLocation.getDescription() + "\".");

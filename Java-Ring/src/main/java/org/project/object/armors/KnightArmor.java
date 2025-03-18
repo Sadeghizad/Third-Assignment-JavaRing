@@ -6,5 +6,6 @@ public class KnightArmor extends Armor {
 
 }
 // peices
+// other:
 // noArmor
 // other armor

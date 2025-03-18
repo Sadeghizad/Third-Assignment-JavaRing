@@ -20,70 +20,79 @@ public class Combat {
             return;
         }
 
-        System.out.println("\n⚔️ Battle begins! Choose an enemy to attack:");
+        System.out.println("\n⚔️ Battle begins!");
 
-        // Show enemies with health bars
-        for (int i = 0; i < enemies.size(); i++) {
-            Enemy enemy = enemies.get(i);
-            System.out.println((i + 1) + "️⃣ " + enemy.getEnemyType() + " - ❤️ " + enemy.getHp() + "/" + enemy.getMaxHp());
-        }
-
-        System.out.print("Enter the number of the enemy you wish to attack: ");
-        int enemyChoice;
-        Enemy selectedEnemy = null;
-
-// Keep asking until a valid choice is made
-        while (true) {
-            System.out.print("Enter the number of the enemy you wish to attack: ");
-            enemyChoice = scanner.nextInt() - 1;
-            scanner.nextLine();
-
-            if (enemyChoice >= 0 && enemyChoice < enemies.size()) {
-                selectedEnemy = enemies.get(enemyChoice);
-                break;
-            } else {
-                System.out.println("\n❌ Invalid choice! Try again.");
+        // **Combat Loop** (Runs until player dies or all enemies are defeated)
+        while (player.getHp() > 0 && !enemies.isEmpty()) {
+            // Display enemies with health bars
+            System.out.println("\n🛡️ Enemies in battle:");
+            for (int i = 0; i < enemies.size(); i++) {
+                Enemy enemy = enemies.get(i);
+                System.out.println((i + 1) + "️⃣ " + enemy.getEnemyType() + " - ❤️ " + enemy.getHp() + "/" + enemy.getMaxHp());
             }
-        }
 
-        playerAttack(player, selectedEnemy, scanner);
+            // **Ask player to attack**
+            int enemyChoice;
+            Enemy selectedEnemy = null;
+            while (true) {
+                System.out.print("\nEnter the number of the enemy you wish to attack: ");
+                enemyChoice = scanner.nextInt() - 1;
+                scanner.nextLine();
 
-
-        // Remove defeated enemies
-        enemies.removeIf(enemy -> {
-            if (enemy.getHp() <= 0) {
-                if (enemy instanceof Skeleton) {
-                    Skeleton skeleton = (Skeleton) enemy;
-                    if (!skeleton.hasResurrected()) {
-                        skeleton.resurrect();
-                        System.out.println("\n☠️ The " + skeleton.getEnemyType() + " pulls itself back together!");
-                        return false; // Don't remove, it resurrects
-                    }
+                if (enemyChoice >= 0 && enemyChoice < enemies.size()) {
+                    selectedEnemy = enemies.get(enemyChoice);
+                    break;
+                } else {
+                    System.out.println("\n❌ Invalid choice! Try again.");
                 }
-                return true; // Remove all other dead enemies
             }
-            return false;
-        });
-        if (enemies.isEmpty()) {
-            System.out.println("\n🏆 Victory! The area is now safe.");
-        }
 
-        // Regenerate FP & MP, and reduce cooldowns each turn
-        player.regainFP(5);  // Passive stamina regain
-        player.fillMana(3);  // Passive mana regain
-        player.reduceSuperCooldown(); // Reduce super ability cooldown
+            playerAttack(player, selectedEnemy, scanner);
 
-        for (Enemy enemy : enemies) {
-            enemy.regainFP(3);
-            enemy.fillMana(2);
-            enemy.reduceSuperCooldown();
-        }
+            // **Remove defeated enemies (Including Resurrection for Skeletons)**
+            enemies.removeIf(enemy -> {
+                if (enemy.getHp() <= 0) {
+                    if (enemy instanceof Skeleton) {
+                        Skeleton skeleton = (Skeleton) enemy;
+                        if (!skeleton.hasResurrected()) {
+                            skeleton.resurrect();
+                            System.out.println("\n☠️ The " + skeleton.getEnemyType() + " pulls itself back together!");
+                            return false; // **Skeleton stays in fight**
+                        }
+                    }
+                    return true; // **Other enemies are permanently removed**
+                }
+                return false;
+            });
 
-        // Enemy's turn if the player successfully attacked
-        if (selectedEnemy.getHp() > 0) {
+            // **Check if all enemies are defeated**
+            if (enemies.isEmpty()) {
+                System.out.println("\n🏆 Victory! The area is now safe.");
+                break;
+            }
+
+            // **Regenerate FP & MP, Reduce Cooldowns**
+            player.regainFP(5);
+            player.fillMana(3);
+            player.reduceSuperCooldown(); // **Reduce cooldown every turn**
+
+            for (Enemy enemy : enemies) {
+                enemy.regainFP(3);
+                enemy.fillMana(2);
+                enemy.reduceSuperCooldown();
+            }
+
+            // **Enemy Turn**
             enemyTurn(enemies, player);
+
+            // **Check if the player has been defeated**
+            if (player.getHp() <= 0) {
+                System.out.println("\n💀 You have fallen in battle...");
+                return;
+            }
         }
     }
+
 
     private static void playerAttack(Player player, Enemy enemy, Scanner scanner) {
         System.out.println("\n⚔️ Choose your attack:");
