@@ -5,9 +5,9 @@ import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
 public abstract class Entity {
-    Weapon weapon;
-    Armor armor;
-    protected String enemyType;
+    protected String name;
+    protected Weapon weapon;
+    protected Armor armor;
     private int hp;
     private int maxHP;
     private int mp;
@@ -15,6 +15,8 @@ public abstract class Entity {
     private int fp;
     private int maxFP;
     private int superAbilityCooldown;
+    private boolean isDefending = false;
+
     public Entity(int hp, int mp, int fp,int superAbilityCooldown, Weapon weapon,Armor armor){
         this.hp = hp;
         this.maxHP = hp;
@@ -55,6 +57,11 @@ public abstract class Entity {
     }
 
     public void takeDamage(int damage) {
+        if(isDefending) {
+            System.out.println("\n🛡️ "+this.name+" brace for impact, preparing to defend the next attack!");
+            damage = (int)((Math.random()*0.3+0.3)*(damage));
+            isDefending=false;
+        }
         if(armor != null && !armor.isBroke()){
         hp -= (int)(0.3*damage);
         armor.reduceDurability((int)(0.7*damage));
@@ -63,15 +70,15 @@ public abstract class Entity {
         }
     }
 
-    public int getMaxHp() {
+    public int getMaxHP() {
         return maxHP;
     }
 
-    public int getMaxMp() {
+    public int getMaxMP() {
         return maxMP;
     }
 
-    public int getMaxFp() {
+    public int getMaxFP() {
         return maxFP;
     }
 
@@ -99,11 +106,19 @@ public abstract class Entity {
         return weapon;
     }
 
+    public Armor getArmor() { return armor; }
     public void attack(Entity target) {
-        target.takeDamage(weapon.getDamage());
+        weapon.use(target);
+    }
+    public void abilityAttack(Entity target) {
+        weapon.useAbility(target);
     }
 
-    public abstract void defend();
+    public void defend(){
+        this.useStamina(10);
+        isDefending=true;
+        System.out.println("\n🛡️ "+this.name+" brace for impact, preparing to defend the next attack!");
+    };
 
     public void reduceSuperCooldown() {
         this.superAbilityCooldown --;

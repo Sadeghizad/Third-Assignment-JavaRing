@@ -5,10 +5,11 @@ import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
 public abstract class Enemy extends Entity {
-
+    String enemyType;
     public Enemy(int hp, int mp, int fp,int superAbilityCooldown, Weapon weapon, Armor armor, String enemyType) {
         super(hp, mp, fp,superAbilityCooldown, weapon,armor);
         this.enemyType = enemyType;
+        name=enemyType;
     }
     public abstract Enemy clone();
 

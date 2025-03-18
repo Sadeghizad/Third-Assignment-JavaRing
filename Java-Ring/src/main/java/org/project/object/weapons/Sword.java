@@ -4,26 +4,32 @@ import org.project.entity.Entity;
 
 import java.util.ArrayList;
 
-// TODO: UPDATE IMPLEMENTATION
 public class Sword extends Weapon {
-    /*
-    THIS IS AN EXAMPLE OF A WEAPON DESIGN.
-    */
-
-    int abilityCharge;
 
     public Sword() {
-        // TODO: DESIGN SWORD'S ATTRIBUTES IMPLEMENT THE CONSTRUCTOR
+        super(15, 0,0); // Damage: 15, Mana Cost: 0 (basic sword has no mana cost)
     }
 
-    // TODO: (BONUS) UPDATE THE UNIQUE ABILITY
-    public void uniqueAbility(ArrayList<Entity> targets) {
-        abilityCharge += 2;
-        for (Entity target : targets) {
-            target.takeDamage(getDamage());
+    @Override
+    public void use(Entity target) {
+        super.use(target);
+        System.out.println("⚔️ You swing your sword, dealing " + getDamage() + " damage!");
+    }
+
+    public void useAbility(Entity target) {
+        if (getAbilityCharge() >= 3) {
+            System.out.println("⚡ You unleash a Sword Flurry, striking all enemies!");
+            target.takeDamage(getDamage() * 2); // Double damage to all enemies
         }
+        super.useAbility(target);
+    }
+
+    @Override
+    public String toString() {
+        return "⚔️ Sword - Damage: " + getDamage() + ", Ability Charge: " + getAbilityCharge();
     }
 }
+
 // extras:
 // axe
 // greatsword

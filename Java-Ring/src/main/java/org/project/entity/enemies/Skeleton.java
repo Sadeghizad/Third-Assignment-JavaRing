@@ -25,7 +25,7 @@ public class Skeleton extends Enemy{
     public void resurrect() {
         if (!resurrected) {
             this.resurrected = true;
-            this.heal(this.getMaxHp() / 2); // Restore 50% HP
+            this.heal(this.getMaxHP() / 2); // Restore 50% HP
             System.out.println("\n☠️ The Skeleton's bones rattle as it stands up once more!");
         }
     }

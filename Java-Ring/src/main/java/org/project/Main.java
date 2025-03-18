@@ -3,18 +3,14 @@ package org.project;
 import org.project.entity.players.Knight;
 import org.project.entity.players.Player;
 import org.project.location.Location;
-import org.project.object.armors.KnightArmor;
+import org.project.object.armors.NoArmor;
 import org.project.object.weapons.Sword;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        List<Location> locations = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        boolean running = true;
 
         Location ancientRuins = new Location("Ancient Ruins", "Crumbling stone ruins with hidden dangers.", 3, 2);
         Location darkForest = new Location("Dark Forest", "A foggy, eerie forest filled with lurking creatures.", 2, 3);
@@ -42,17 +38,15 @@ public class Main {
         Player player = null;
         int choice = scanner.nextInt();
         switch (choice) {
-//            case 2:
-//                player = new Wizard("Wizard", 80, 100, null, null);
-//                break;
-//            case 3:
-//                player = new Assassin("Assassin", 90, 60, null, null);
-//                break;
+            case 1:
+                player = new Knight("The Knight of Light", 100, 50, 30, 4,3, new Sword(), new NoArmor());
+                break;
+            // Placeholder for Wizard and Assassin if implemented later
             default:
                 System.out.println("❌ Invalid choice! Defaulting to Knight.");
-                player = new Knight("The Knight of Light", 100, 50, 30, 4,new Sword(),new KnightArmor());
+                player = new Knight("The Knight of Light", 100, 50, 30, 4,3, new Sword(), new NoArmor());
         }
-        while (running) {
+        while (player.isAlive()) {
             System.out.println("\nWelcome to the " + currentLocation.getName()+"\n     \""+currentLocation.getDescription() + "\".");
             System.out.println("\nWhat do you want to do?");
             System.out.println("1. Move to another location 🚶");
@@ -81,6 +75,8 @@ public class Main {
                 Location nextLocation = currentLocation.getConnectedLocation(destination);
 
                 if (nextLocation != null) {
+                    currentLocation.resetLocation();
+                    System.out.println("Enemies coming back as you go outside the area.");
                     currentLocation = nextLocation;
                     System.out.println("\n📖 As you step forward, the air around you shifts...");
                     System.out.println("You arrive at **" + currentLocation.getName() + "**.");
