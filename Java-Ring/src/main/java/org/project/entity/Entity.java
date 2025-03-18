@@ -63,8 +63,9 @@ public abstract class Entity {
             isDefending=false;
         }
         if(armor != null && !armor.isBroke()){
-        hp -= (int)(0.3*damage);
+        hp -= (int)((armor.getDefense()*0.01)*damage);
         armor.reduceDurability((int)(0.7*damage));
+        armor.checkBreak();
         }else{
             hp -= damage;
         }

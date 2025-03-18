@@ -4,6 +4,7 @@ import org.project.entity.enemies.Enemy;
 import org.project.entity.enemies.Skeleton;
 import org.project.entity.players.Player;
 import org.project.location.Location;
+import org.project.object.armors.NoArmor;
 
 import java.util.List;
 import java.util.Random;
@@ -67,8 +68,21 @@ public class Combat {
             // **Check if all enemies are defeated**
             if (enemies.isEmpty()) {
                 System.out.println("\n🏆 Victory! The area is now safe.");
+
+                // 30% chance to repair armor
+                if (Math.random() < 0.3) { // 30% probability
+                    if (player.getArmor() != null && player.getArmor().isBroke()) {
+                        System.out.println("\n🔧 You find materials to repair your armor!");
+                        player.getArmor().repair();
+                        System.out.println("🛡️ Your armor has been partially restored.");
+                    } else if (player.getArmor() != null && !(currentLocation.getArmorDrop() instanceof NoArmor)) {
+                        System.out.println("\n🔧 You find repair materials, but you have no armor to repair.");
+                    }
+                }
+
                 break;
             }
+
 
             // **Regenerate FP & MP, Reduce Cooldowns**
             player.regainFP(5);

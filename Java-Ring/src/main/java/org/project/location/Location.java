@@ -2,6 +2,8 @@ package org.project.location;
 
 import org.project.entity.enemies.Enemy;
 import org.project.entity.enemies.Skeleton;
+import org.project.object.armors.Armor;
+import org.project.object.armors.NoArmor;
 
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ public class Location {
     private String description;
     private int enemyMaxLevel;
     private int numEnemies;
+    private Armor armorDrop = new NoArmor(); // Default: No armor
 
     private ArrayList<Location> connections;
     private ArrayList<Enemy> enemies;
@@ -25,6 +28,7 @@ public class Location {
             enemies.add(spawnRandomEnemy(this.enemyMaxLevel));
         }
     }
+
 
 
     private Enemy spawnRandomEnemy(int enemyMaxLevel) {
@@ -83,4 +87,16 @@ public class Location {
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+    public Armor getArmorDrop() {
+        return armorDrop;
+    }
+
+    public void setArmorDrop(Armor armor) {
+        this.armorDrop = armor;
+    }
+
+    public void removeArmor() {
+        this.armorDrop = new NoArmor(); // Replaces with "No Armor" after being taken
+    }
+
 }
