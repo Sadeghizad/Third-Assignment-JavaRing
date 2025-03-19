@@ -16,6 +16,6 @@ public class FireBreath extends Weapon {
 
     @Override
     public String toString() {
-        return "🔥 Fire Breath - Damage: " + getDamage() + ", FP Cost: " + getFpCost();
+        return "🔥 Fire Breath - Damage: " + getDamage() + ", MP Cost: " + getManaCost();
     }
 }
