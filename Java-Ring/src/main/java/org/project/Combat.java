@@ -1,5 +1,6 @@
 package org.project;
 
+import org.project.entity.enemies.BlackKnight;
 import org.project.entity.enemies.Enemy;
 import org.project.entity.enemies.Skeleton;
 import org.project.entity.players.Player;
@@ -64,6 +65,16 @@ public class Combat {
                             System.out.println("\n☠️ The " + skeleton.getEnemyType() + " pulls itself back together!");
                             return false; // **Skeleton stays in fight**
                         }
+                    }
+                    if (enemy instanceof BlackKnight) {
+                        BlackKnight blackKnight = (BlackKnight) enemy;
+                        if (!BlackKnight.isReaperDropped()) {
+                            System.out.println("\n💀 The Black Knight collapses, his grip on the **Reaper** loosening...");
+                            System.out.println("🪦 You may now claim **The Reaper**.");
+                            BlackKnight.ReaperDropped();
+                        }
+                        return true;
+
                     }
                     return true; // **Other enemies are permanently removed**
                 }
@@ -172,14 +183,12 @@ public class Combat {
                     }
                     break;
                 case 4:
-                    if (player.getWeapon().getAbilityCharge() >= 3 && player.getFp() >= 20 && player.getMp() >= 25) {
+                    if ( player.getFp() >= 20 && player.getMp() >= 25) {
                         System.out.println("\n⚡ You activate your weapon power!");
                         player.abilityAttack(enemy);
                         player.useStamina(20);
                         player.useMana(25);
                         attackSuccessful = true;
-                    } else if (player.getWeapon().getAbilityCharge() > 0) {
-                        System.out.println("\n❌ Your weapon ability is not gathered yet you need " + Math.min(3-player.getWeapon().getAbilityCharge(),1) + " more attacks to charge it!");
                     } else {
                         System.out.println("\n❌ Not enough resources(fp/mp) for a weapon ability!");
                     }

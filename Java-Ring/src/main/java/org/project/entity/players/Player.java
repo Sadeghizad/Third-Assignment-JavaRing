@@ -4,6 +4,7 @@ import org.project.entity.Entity;
 import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player extends Entity{
@@ -22,9 +23,10 @@ public abstract class Player extends Entity{
     public static int getPlayerCount() {
         return playerCount; // Returns total number of players
     }
-    public static List<Entity> getPlayers(){
-        return Players;
+    public static List<Entity> getPlayers() {
+        return new ArrayList<>(Players); // Properly casting List<Player> to List<Entity>
     }
+
 
     public abstract void SuperAbility(Entity target);
 
@@ -32,6 +34,12 @@ public abstract class Player extends Entity{
         this.armor = newArmor;
         System.out.println("🛡️ You have equipped " + newArmor);
     }
+
+    public void equipWeapon(Weapon newWeapon) {
+        this.weapon = newWeapon;
+        System.out.println("🤺 You have equipped " + newWeapon);
+    }
+
 
     public String getName() {
         return name;

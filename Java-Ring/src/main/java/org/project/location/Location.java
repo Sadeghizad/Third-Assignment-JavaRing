@@ -3,6 +3,8 @@ package org.project.location;
 import org.project.entity.enemies.*;
 import org.project.object.armors.Armor;
 import org.project.object.armors.NoArmor;
+import org.project.object.weapons.Fist;
+import org.project.object.weapons.Weapon;
 
 import java.util.ArrayList;
 
@@ -12,6 +14,7 @@ public class Location {
     private int enemyMaxLevel;
     private int numEnemies;
     private Armor armorDrop = new NoArmor(); // Default: No armor
+    private Weapon weaponDrop = new Fist();  // Default: No weapon
 
     private ArrayList<Location> connections;
     private ArrayList<Enemy> enemies;
@@ -90,6 +93,7 @@ public class Location {
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+
     public Armor getArmorDrop() {
         return armorDrop;
     }
@@ -99,7 +103,18 @@ public class Location {
     }
 
     public void removeArmor() {
-        this.armorDrop = new NoArmor(); // Replaces with "No Armor" after being taken
+        this.armorDrop = new NoArmor();
     }
 
+    public Weapon getWeaponDrop() {
+        return weaponDrop;
+    }
+
+    public void setWeaponDrop(Weapon weapon) {
+        this.weaponDrop = weapon;
+    }
+
+    public void removeWeapon() {
+        this.weaponDrop = new Fist();
+    }
 }

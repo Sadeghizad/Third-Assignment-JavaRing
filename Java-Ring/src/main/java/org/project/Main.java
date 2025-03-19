@@ -2,15 +2,12 @@ package org.project;
 
 import org.project.entity.players.*;
 import org.project.location.Location;
-import org.project.object.armors.KnightArmor;
-import org.project.object.armors.NoArmor;
-import org.project.object.weapons.Dagger;
-import org.project.object.weapons.Mace;
-import org.project.object.weapons.Staff;
-import org.project.object.weapons.Sword;
+import org.project.object.armors.*;
+import org.project.object.weapons.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -42,9 +39,18 @@ public class Main {
         locations.add(thunderPeak);
         locations.add(ironPrison);
 
-        int armorLocationIndex = (int) (Math.random() * locations.size());
-        System.out.println(armorLocationIndex); // my cheat
-        locations.get(armorLocationIndex).setArmorDrop(new KnightArmor());
+        List<Armor> availableArmors = List.of(new KnightArmor(), new CursedPlateArmor(), new ShadowCloak(),new TornedLeatherArmor());
+        List<Weapon> availableWeapons = List.of(new Sword(), new VampiricClaws(),new Dagger(),new Mace(),new Staff());
+
+        Random random = new Random();
+
+        for (Location location : locations) {
+            if (random.nextInt(100) < 20) { // 20% chance to have an armor
+                location.setArmorDrop(availableArmors.get(random.nextInt(availableArmors.size())));
+            }
+            if (random.nextInt(100) < 10) { // 30% chance to have a weapon
+                location.setWeaponDrop(availableWeapons.get(random.nextInt(availableWeapons.size())));
+            }}
 
         System.out.println("🌟 Welcome, traveler. Choose your path:");
         System.out.println("1. KNIGHT of Light ⚔️ - A strong warrior with heavy armor.");
@@ -57,10 +63,10 @@ public class Main {
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                player = new Knight("The Knight of Light", 100, 50, 30, 4, 3, new Sword(), new NoArmor());
+                player = new Knight("The Knight of Light", 100, 50, 30, 4, 3, new Fist(), new NoArmor());
                 break;
             case 2:
-                player = new Wizard("The Arcane Master", 80, 40, 60, 3, 3, new Staff(), new NoArmor());
+                player = new Wizard("The Arcane Master", 80, 40, 60, 3, 3, new Fist(), new NoArmor());
                 break;
             case 3:
                 player = new Assassin("The Silent Blade", 90, 50, 40, 3, 3, new Dagger(), new NoArmor());
@@ -78,7 +84,7 @@ public class Main {
             System.out.println("\nWhat do you want to do?");
             System.out.println("1. Move to another location 🚶");
             System.out.println("2. Look for enemies to fight ⚔️");
-            System.out.println("3. Search for armor 🏺");
+            System.out.println("3. Search for armor and weapon 🏺 ⚔️");
             System.out.println("4. Exit the game ❌");
 
             System.out.print("Enter your choice: ");
@@ -115,21 +121,43 @@ switch (choice) {
         System.out.println("\nThe cold claims another soul as your journey ends...");
         break;
     case 3:
-        if (currentLocation.getArmorDrop() instanceof NoArmor) {
-            System.out.println("\n🏺 You search the area... but find nothing.");
-        } else {
-            System.out.println("\n🏺 You found " + currentLocation.getArmorDrop() + "!");
+        boolean foundItem = false;
+
+        // **Check for armor**
+        if (!(currentLocation.getArmorDrop() instanceof NoArmor)) {
+            foundItem = true;
+            System.out.println("\n🏺 You found an armor: " + currentLocation.getArmorDrop() + "!");
             System.out.println("Do you want to equip it? (yes/no)");
 
             String response = scanner.nextLine().trim().toLowerCase();
             if (response.equals("yes")) {
                 player.equipArmor(currentLocation.getArmorDrop());
-                currentLocation.removeArmor(); // Armor is no longer available in this location
+                currentLocation.removeArmor(); // Remove from the location
             } else {
                 System.out.println("❌ You leave the armor behind.");
             }
         }
+
+        // **Check for weapon**
+        if (!(currentLocation.getWeaponDrop() instanceof Fist)) {
+            foundItem = true;
+            System.out.println("\n🏺 You found a weapon: " + currentLocation.getWeaponDrop() + "!");
+            System.out.println("Do you want to equip it? (yes/no)");
+
+            String response = scanner.nextLine().trim().toLowerCase();
+            if (response.equals("yes")) {
+                player.equipWeapon(currentLocation.getWeaponDrop());
+                currentLocation.removeWeapon(); // Remove from the location
+            } else {
+                System.out.println("❌ You leave the weapon behind.");
+            }
+        }
+
+        if (!foundItem) {
+            System.out.println("\n🏺 You search the area... but find nothing.");
+        }
         break;
+
     default:
         System.out.println("❌ Invalid choice! Try again.");
 

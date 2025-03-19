@@ -16,6 +16,6 @@ public class ColossalHammer extends Weapon {
 
     @Override
     public String toString() {
-        return "🔨 Colossal Hammer - Damage: " + getDamage() + ", FP Cost: " + getFpCost();
+        return "🔨 Colossal Hammer - Damage: " + getDamage() + ", MP Cost: " + getManaCost();
     }
 }

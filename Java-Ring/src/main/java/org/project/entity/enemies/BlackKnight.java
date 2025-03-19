@@ -35,16 +35,13 @@ public class BlackKnight extends Enemy {
             this.setSuperAbilityCooldown(3);
         }
     }
-
-    @Override
-    public void die() {
-        super.die();
-        if (!reaperDropped) {
-            System.out.println("\n💀 The Black Knight collapses, his grip on the **Reaper** loosening...");
-            System.out.println("🪦 You may now claim **The Reaper**.");
-            reaperDropped = true;
-        }
+    public static void ReaperDropped(){
+        reaperDropped = true;
     }
+    public static boolean isReaperDropped(){
+        return reaperDropped;
+    }
+
 
     @Override
     public Enemy clone() {
