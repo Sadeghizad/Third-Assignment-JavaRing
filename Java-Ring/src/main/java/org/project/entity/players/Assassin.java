@@ -4,7 +4,7 @@ import org.project.entity.Entity;
 import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
-// TODO: UPDATE IMPLEMENTATION
+
 public class Assassin extends Player{
     private boolean invisible = false;
     private int invisibleTurns = 0;
@@ -25,8 +25,8 @@ public class Assassin extends Player{
     public void attack(Entity target) {
         if (invisible) {
             System.out.println("\n💀 Silent strike! You deal **increased damage** while invisible!");
-            target.takeDamage(this.getWeapon().getDamage() * 2); // Double damage while invisible
-            this.invisibleTurns--; // Reduce invisibility duration
+            target.takeDamage(this.getWeapon().getDamage() * 2); 
+            this.invisibleTurns--; 
 
             if (this.invisibleTurns <= 0) {
                 this.invisible = false;
@@ -41,12 +41,12 @@ public class Assassin extends Player{
     public void takeDamage(int damage) {
         if (invisible) {
             System.out.println("\n🕶️ You are invisible and evade the attack!");
-            this.invisibleTurns--; // Reduce invisibility duration
+            this.invisibleTurns--; 
             if (this.invisibleTurns <= 0) {
                 this.invisible = false;
                 System.out.println("\n⚠️ You become visible again!");
             }
-            return; // Ignore all damage while invisible
+            return; 
         }
         super.takeDamage(damage);
     }

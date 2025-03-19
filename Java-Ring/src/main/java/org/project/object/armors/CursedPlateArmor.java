@@ -6,7 +6,7 @@ import org.project.entity.players.Player;
 public class CursedPlateArmor extends Armor {
 
     public CursedPlateArmor() {
-        super(30, 40); // High defense, but heavy
+        super(30, 40); 
     }
 
     @Override

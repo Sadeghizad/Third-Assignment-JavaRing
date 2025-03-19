@@ -5,7 +5,7 @@ import org.project.entity.Entity;
 public class ColossalHammer extends Weapon {
 
     public ColossalHammer() {
-        super(40, 20, 0); // Damage: 40, FP Cost: 20 (Slow but powerful)
+        super(40, 20, 0); 
     }
 
     @Override

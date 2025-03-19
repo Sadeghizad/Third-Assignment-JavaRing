@@ -6,7 +6,7 @@ import org.project.entity.players.Player;
 public class ShadowCloak extends Armor {
 
     public ShadowCloak() {
-        super(10, 20); // Basic defense, special dodge ability
+        super(10, 20); 
     }
 
     @Override

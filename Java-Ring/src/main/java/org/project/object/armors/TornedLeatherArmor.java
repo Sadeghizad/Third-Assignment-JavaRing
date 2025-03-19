@@ -6,7 +6,7 @@ import org.project.entity.players.Player;
 public class TornedLeatherArmor extends Armor {
 
     public TornedLeatherArmor() {
-        super(10, 40); // Defense: 40, Durability: 200
+        super(10, 40); 
     }
 
     @Override

@@ -21,9 +21,9 @@ public class Dragon extends Enemy {
     public void attack(Entity target) {
         System.out.println("\n🔥 The Dragon unleashes its fire!");
         target.takeDamage(this.getWeapon().getDamage());
-        if (Math.random() < 0.3) { // 30% chance to apply Burn effect
+        if (Math.random() < 0.3) { 
             System.out.println("🔥 " + target.getName() + " is burned and will take damage over time!");
-            target.applyBurn(5, 3); // Takes 5 damage for 3 turns
+            target.applyBurn(5, 3); 
         }
     }
     @Override
@@ -33,9 +33,9 @@ public class Dragon extends Enemy {
             System.out.println("\n🌋 **Hellfire Storm!** The Dragon engulfs the battlefield in flames!");
             for (Entity target : targets) {
                 System.out.println("🔥 " + target.getName() + " is caught in the storm!");
-                target.takeDamage(this.getWeapon().getDamage() + 20); // Extra powerful attack
+                target.takeDamage(this.getWeapon().getDamage() + 20); 
             }
-            this.setSuperAbilityCooldown(2); // Reset cooldown
+            this.setSuperAbilityCooldown(2); 
         }
     }
 }

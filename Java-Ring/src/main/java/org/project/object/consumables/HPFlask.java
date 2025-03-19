@@ -6,7 +6,7 @@ public class HPFlask extends Consumable {
     private final int healAmount;
 
     public HPFlask() {
-        this.healAmount = 20; // Example: Each flask heals 20 HP
+        this.healAmount = 20; 
     }
 
     @Override
@@ -29,8 +29,7 @@ public class HPFlask extends Consumable {
     }
 }
 
-// extras:
-// MPflask
-// Blastingjar
-// throwingknife
-// wonderflask
+
+
+
+

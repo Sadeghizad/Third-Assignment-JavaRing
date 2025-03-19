@@ -5,7 +5,7 @@ import org.project.entity.Entity;
 public class Staff extends Weapon {
 
     public Staff() {
-        super(5, 10, 3); // Damage: 5, Mana Cost: 10 (Magic weapon)
+        super(5, 10, 3); 
     }
 
     @Override
@@ -17,7 +17,7 @@ public class Staff extends Weapon {
     public void useAbility(Entity target) {
         if (getAbilityCharge() >= 3) {
             System.out.println("✨ unleash **Arcane Blast**, striking enemy with magic energy!");
-            target.takeDamage(getDamage() + 10); // Extra 10 magic damage
+            target.takeDamage(getDamage() + 10); 
         }
         super.useAbility(target);
     }

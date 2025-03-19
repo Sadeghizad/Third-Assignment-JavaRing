@@ -5,7 +5,7 @@ import org.project.entity.Entity;
 public class VampiricClaws extends Weapon {
 
     public VampiricClaws() {
-        super(20, 0, 0); // Damage: 20, No mana cost
+        super(20, 0, 0); 
     }
 
     @Override

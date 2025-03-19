@@ -18,7 +18,7 @@ public class BlackKnight extends Enemy {
         System.out.println("\n⚔️ The Black Knight swings the Reaper, delivering a devastating blow!");
         int damage = this.getWeapon().getDamage();
         target.takeDamage(damage);
-        target.reduceMaxHP(3); // Permanent Max HP Reduction
+        target.reduceMaxHP(3); 
         System.out.println("☠️ " + target.getName() + " feels their life force being drained! Max HP -3.");
     }
 
@@ -29,7 +29,7 @@ public class BlackKnight extends Enemy {
             for (Entity target : targets) {
                 int damage = this.getWeapon().getDamage() + 15;
                 target.takeDamage(damage);
-                target.reduceMaxHP(5); // Heavy max HP reduction
+                target.reduceMaxHP(5); 
                 System.out.println("☠️ " + target.getName() + " is permanently weakened! Max HP -5.");
             }
             this.setSuperAbilityCooldown(3);

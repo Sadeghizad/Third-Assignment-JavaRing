@@ -36,7 +36,7 @@ public class Skeleton extends Enemy{
     public void resurrect() {
         if (!resurrected) {
             this.resurrected = true;
-            this.heal(this.getMaxHP() / 2); // Restore 50% HP
+            this.heal(this.getMaxHP() / 2); 
             System.out.println("\n☠️ The Skeleton's bones rattle as it stands up once more!");
         }
     }
@@ -45,9 +45,9 @@ public class Skeleton extends Enemy{
         return resurrected;
     }
 
-    // TODO: DESIGN ENEMY'S WEAPON AND ARMOR AND IMPLEMENT THE CONSTRUCTOR
+    
 }
-// extras:
-// golem
-// drakola
-// blackknight
+
+
+
+

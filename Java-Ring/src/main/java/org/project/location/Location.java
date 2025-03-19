@@ -13,8 +13,8 @@ public class Location {
     private String description;
     private int enemyMaxLevel;
     private int numEnemies;
-    private Armor armorDrop = new NoArmor(); // Default: No armor
-    private Weapon weaponDrop = new Fist();  // Default: No weapon
+    private Armor armorDrop = new NoArmor(); 
+    private Weapon weaponDrop = new Fist();  
 
     private ArrayList<Location> connections;
     private ArrayList<Enemy> enemies;
@@ -44,7 +44,7 @@ public class Location {
             case 5: return new Drakola();
             case 6: return new BlackKnight();
             case 7: return new Dragon();
-            default: return new Skeleton(); // Fallback in case of errors
+            default: return new Skeleton(); 
         }
 
     }
@@ -54,7 +54,7 @@ public class Location {
         enemies.clear();
 
         for (int i = 0; i < numEnemies; i++) {
-            enemies.add(spawnRandomEnemy(this.enemyMaxLevel)); // Spawn fresh enemies
+            enemies.add(spawnRandomEnemy(this.enemyMaxLevel)); 
         }
     }
 
@@ -65,7 +65,7 @@ public class Location {
 
         if (!connections.contains(location)) {
             connections.add(location);
-            location.addConnection(this); // Ensure bidirectional movement
+            location.addConnection(this); 
         }
     }
 
@@ -83,7 +83,7 @@ public class Location {
                 return loc;
             }
         }
-        return null; // No matching location found
+        return null; 
     }
 
     public ArrayList<Location> getConnections() {

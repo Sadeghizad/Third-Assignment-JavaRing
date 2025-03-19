@@ -6,7 +6,7 @@ import org.project.entity.players.Player;
 public class DragonScales extends Armor {
 
     public DragonScales() {
-        super(50, 100); // High durability, but armor-piercing mechanics
+        super(50, 100); 
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Drakola extends Enemy {
     private static final Random random = new Random();
-    private boolean firstAttackAvoided = false; // Drakola dodges the first attack
+    private boolean firstAttackAvoided = false; 
 
     public Drakola() {
         super(120, 30, 100, 3, new VampiricClaws(), new ShadowCloak(), "Drakola");
@@ -21,7 +21,7 @@ public class Drakola extends Enemy {
         System.out.println("\n🦇 Drakola lunges forward with his vampiric claws!");
         int damage = this.getWeapon().getDamage();
         target.takeDamage(damage);
-        this.heal(damage / 2); // 50% lifesteal
+        this.heal(damage / 2); 
         System.out.println("🩸 Drakola **absorbs " + (damage / 2) + " HP** from " + target.getName() + "!");
     }
 
@@ -39,13 +39,13 @@ public class Drakola extends Enemy {
     public void abilityAttack(List<Entity> targets) {
         if (targets.isEmpty()) return;
         if (this.getSuperAbilityCooldown() == 0) {
-            if (random.nextInt(100) < 30) { // 30% chance to succeed
+            if (random.nextInt(100) < 30) { 
 
                 System.out.println("\n🩸 **Blood Drain!** Drakola siphons life from all enemies!");
             for (Entity target : targets) {
                 int damage = this.getWeapon().getDamage() + 10;
                 target.takeDamage(damage);
-                this.heal(damage); // Full heal from damage dealt
+                this.heal(damage); 
                 System.out.println("🩸 Drakola drains **" + damage + " HP** from " + target.getName() + "!");
             }
             this.setSuperAbilityCooldown(3);
@@ -58,7 +58,7 @@ public class Drakola extends Enemy {
             Entity target = targets.get(targetIndex);
 
             System.out.println("\n🧠 **Drakola attempts to take control of " + target.getName() + "'s mind!**");
-            if (random.nextInt(100) < 30) { // 30% chance to succeed
+            if (random.nextInt(100) < 30) { 
                 System.out.println("🧠 **Mind Control Successful!** " + target.getName() + " skips their turn.");
                 target.stun(1);
             } else {

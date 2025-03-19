@@ -45,10 +45,10 @@ public class Main {
         Random random = new Random();
 
         for (Location location : locations) {
-            if (random.nextInt(100) < 20) { // 20% chance to have an armor
+            if (random.nextInt(100) < 20) { 
                 location.setArmorDrop(availableArmors.get(random.nextInt(availableArmors.size())));
             }
-            if (random.nextInt(100) < 10) { // 30% chance to have a weapon
+            if (random.nextInt(100) < 10) { 
                 location.setWeaponDrop(availableWeapons.get(random.nextInt(availableWeapons.size())));
             }}
 
@@ -94,7 +94,7 @@ public class Main {
             System.out.print("Enter your choice: ");
 
             choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 switch (choice) {
     case 1:
         System.out.println("\nAvailable Paths:");
@@ -127,7 +127,7 @@ switch (choice) {
     case 3:
         boolean foundItem = false;
 
-        // **Check for armor**
+        
         if (!(currentLocation.getArmorDrop() instanceof NoArmor)) {
             foundItem = true;
             System.out.println("\n🏺 You found an armor: " + currentLocation.getArmorDrop() + "!");
@@ -136,13 +136,13 @@ switch (choice) {
             String response = scanner.nextLine().trim().toLowerCase();
             if (response.equals("yes")) {
                 player.equipArmor(currentLocation.getArmorDrop());
-                currentLocation.removeArmor(); // Remove from the location
+                currentLocation.removeArmor(); 
             } else {
                 System.out.println("❌ You leave the armor behind.");
             }
         }
 
-        // **Check for weapon**
+        
         if (!(currentLocation.getWeaponDrop() instanceof Fist)) {
             foundItem = true;
             System.out.println("\n🏺 You found a weapon: " + currentLocation.getWeaponDrop() + "!");
@@ -152,7 +152,7 @@ switch (choice) {
             if (response.equals("yes")) {
                 player.equipWeapon(currentLocation.getWeaponDrop());
                 player.addWeapon(currentLocation.getWeaponDrop());
-                currentLocation.removeWeapon(); // Remove from the location
+                currentLocation.removeWeapon(); 
             } else {
                 System.out.println("❌ You leave the weapon behind.");
             }

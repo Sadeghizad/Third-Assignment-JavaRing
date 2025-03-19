@@ -24,10 +24,10 @@ public abstract class Player extends Entity{
         addWeapon(new Fist());
     }
     public static int getPlayerCount() {
-        return playerCount; // Returns total number of players
+        return playerCount; 
     }
     public static List<Entity> getPlayers() {
-        return new ArrayList<>(Players); // Properly casting List<Player> to List<Entity>
+        return new ArrayList<>(Players); 
     }
 
 

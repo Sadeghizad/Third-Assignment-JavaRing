@@ -24,16 +24,16 @@ public class Combat {
 
         System.out.println("\n⚔️ Battle begins!");
 
-        // **Combat Loop** (Runs until player dies or all enemies are defeated)
+        
         while (player.getHp() > 0 && !enemies.isEmpty()) {
-            // Display enemies with health bars
+            
             System.out.println("\n🛡️ Enemies in battle:");
             for (int i = 0; i < enemies.size(); i++) {
                 Enemy enemy = enemies.get(i);
                 System.out.println((i + 1) + "️⃣ " + enemy.getEnemyType() + " - ❤️ " + enemy.getHp() + "/" + enemy.getMaxHP());
             }
 
-            // **Ask player to attack**
+            
             int enemyChoice;
             Enemy selectedEnemy = null;
             while (true) {
@@ -56,7 +56,7 @@ public class Combat {
                 playerAttack(player, selectedEnemy, scanner);
             }
 
-            // **Remove defeated enemies (Including Resurrection for Skeletons)**
+            
             enemies.removeIf(enemy -> {
                 if (enemy.getHp() <= 0) {
                     if (enemy instanceof Skeleton) {
@@ -64,7 +64,7 @@ public class Combat {
                         if (!skeleton.hasResurrected()) {
                             skeleton.resurrect();
                             System.out.println("\n☠️ The " + skeleton.getEnemyType() + " pulls itself back together!");
-                            return false; // **Skeleton stays in fight**
+                            return false; 
                         }
                     }
                     if (enemy instanceof BlackKnight) {
@@ -77,17 +77,17 @@ public class Combat {
                         return true;
 
                     }
-                    return true; // **Other enemies are permanently removed**
+                    return true; 
                 }
                 return false;
             });
 
-            // **Check if all enemies are defeated**
+            
             if (enemies.isEmpty()) {
                 System.out.println("\n🏆 Victory! The area is now safe.");
 
-                // 30% chance to repair armor
-                if (Math.random() < 0.3) { // 30% probability
+                
+                if (Math.random() < 0.3) { 
                     if (player.getArmor() != null && player.getArmor().isBroke()) {
                         System.out.println("\n🔧 You find materials to repair your armor!");
                         player.getArmor().repair();
@@ -101,7 +101,7 @@ public class Combat {
             }
 
 
-            // **Regenerate FP & MP, Reduce Cooldowns**
+            
             player.handleBurnEffect();
             player.regainFP(5);
             player.fillMana(3);
@@ -113,10 +113,10 @@ public class Combat {
                 enemy.reduceSuperCooldown();
             }
 
-            // **Enemy Turn**
+            
             enemyTurn(enemies, player);
 
-            // **Check if the player has been defeated**
+            
             if (player.getHp() <= 0) {
                 System.out.println("\n💀 You have fallen in battle...");
                 player.die();
@@ -147,16 +147,16 @@ public class Combat {
         System.out.print("Enter your choice: ");
         boolean attackSuccessful = false;
         while (!attackSuccessful){
-            boolean isDefending = false; // Track if player is defending
+            boolean isDefending = false; 
             int attackChoice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
 
 
             switch (attackChoice) {
                 case 1:
                     if (player.getFp() >= 5) {
                         player.attack(enemy);
-                        player.useStamina(5); // Normal attack costs 5 FP
+                        player.useStamina(5); 
                         attackSuccessful = true;
                     } else {
                         System.out.println("\n❌ Not enough FP for a normal attack!");
@@ -167,7 +167,7 @@ public class Combat {
                     if (player.getFp() >= 15) {
                         player.attack(enemy);
                         player.attack(enemy);
-                        player.useStamina(15); // Heavy attack costs 15 FP
+                        player.useStamina(15); 
                         attackSuccessful = true;
                     } else {
                         System.out.println("\n❌ Not enough FP for a heavy attack!");
@@ -205,7 +205,7 @@ public class Combat {
                     break;
 
                 case 6:
-                    if (player.getFp() >= 10) { // Defending costs stamina
+                    if (player.getFp() >= 10) { 
                         System.out.println("\n🛡️ You brace for impact, preparing to defend the next attack!");
                         player.defend();
                         attackSuccessful = true;
@@ -245,7 +245,7 @@ public class Combat {
 
         boolean attackSuccess=false;
         while (!attackSuccess){
-            int enemyAction = random.nextInt(3); // 0 = Normal, 1 = Heavy/Super, 2 = Buff
+            int enemyAction = random.nextInt(3); 
 
             switch (enemyAction) {
                 case 0:
@@ -273,7 +273,7 @@ public class Combat {
                     }
                     break;
                 case 3:
-                    if (attackingEnemy.getFp() >= 10) { // Defending costs stamina
+                    if (attackingEnemy.getFp() >= 10) { 
                         attackingEnemy.defend();
                         attackSuccess = true;
                     }

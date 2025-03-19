@@ -6,7 +6,7 @@ import org.project.entity.players.Player;
 public class KnightArmor extends Armor {
 
     public KnightArmor() {
-        super(40, 200); // Defense: 40, Durability: 200
+        super(40, 200); 
     }
 
     @Override
@@ -27,7 +27,6 @@ public class KnightArmor extends Armor {
 
 
 
-// peices
-// other:
-// noArmor
-// other armor
+
+
+

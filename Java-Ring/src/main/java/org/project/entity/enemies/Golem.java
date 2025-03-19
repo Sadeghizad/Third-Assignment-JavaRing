@@ -30,7 +30,7 @@ public class Golem extends Enemy {
             for (Entity target : targets) {
                 System.out.println("🌪️ " + target.getName() + " is **stunned** and takes massive damage!");
                 target.takeDamage(this.getWeapon().getDamage() + 10);
-                target.stun(1); // Stuns for 1 turn
+                target.stun(1); 
             }
             this.setSuperAbilityCooldown(4);
         }
@@ -38,7 +38,7 @@ public class Golem extends Enemy {
 
     @Override
     public void takeDamage(int amount) {
-        int reducedDamage = Math.max(1, amount - 10); // Passive rock body absorbs some damage
+        int reducedDamage = Math.max(1, amount - 10); 
         super.takeDamage(reducedDamage);
         System.out.println("🛡️ The Golem's rock body absorbs some of the damage!");
     }

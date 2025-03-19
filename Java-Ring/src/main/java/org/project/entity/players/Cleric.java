@@ -4,7 +4,7 @@ import org.project.entity.Entity;
 import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
-// TODO: UPDATE IMPLEMENTATION
+
 public class Cleric extends Player{
     public Cleric(String name, int hp, int fp, int mp, int superAbilityCooldown, int flasks, Weapon weapon, Armor armor){
         super(name, hp, fp, mp,superAbilityCooldown,flasks, weapon,armor);

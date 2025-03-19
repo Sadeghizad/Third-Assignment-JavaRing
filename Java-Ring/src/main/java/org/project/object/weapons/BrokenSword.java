@@ -5,7 +5,7 @@ import org.project.entity.Entity;
 public class BrokenSword extends Weapon {
 
     public BrokenSword() {
-        super(6, 0,0); // Damage: 15, Mana Cost: 0 (basic sword has no mana cost)
+        super(6, 0,0); 
     }
 
     @Override

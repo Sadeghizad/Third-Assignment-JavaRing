@@ -5,7 +5,7 @@ import org.project.entity.Entity;
 public class Reaper extends Weapon {
 
     public Reaper() {
-        super(30, 0, 0); // High Damage, No mana cost
+        super(30, 0, 0); 
     }
 
     @Override

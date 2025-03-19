@@ -5,7 +5,7 @@ import org.project.entity.Entity;
 public class Dagger extends Weapon {
 
     public Dagger() {
-        super(10, 0, 0); // Damage: 10, Mana Cost: 0 (fast weapon, lower base damage)
+        super(10, 0, 0); 
     }
 
     @Override
@@ -15,9 +15,9 @@ public class Dagger extends Weapon {
     }
 
     public void useAbility(Entity target) {
-        if (getAbilityCharge() >= 2) { // Faster ability charge than Sword
+        if (getAbilityCharge() >= 2) { 
             System.out.println("💥 execute a **Critical Strike**, piercing deeply!");
-            target.takeDamage((int)(getDamage() * 2.5)); // Double damage
+            target.takeDamage((int)(getDamage() * 2.5)); 
         }
         super.useAbility(target);
     }

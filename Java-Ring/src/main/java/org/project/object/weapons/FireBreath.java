@@ -5,7 +5,7 @@ import org.project.entity.Entity;
 public class FireBreath extends Weapon {
 
     public FireBreath() {
-        super(30, 15, 0); // Damage: 30, FP Cost: 15
+        super(30, 15, 0); 
     }
 
     @Override

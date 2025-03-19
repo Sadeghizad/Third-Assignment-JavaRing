@@ -5,7 +5,7 @@ import org.project.object.Object;
 
 import java.util.ArrayList;
 
-// TODO: UPDATE IMPLEMENTATION
+
 public abstract class Weapon implements Object {
     private int damage;
     private int manaCost;
@@ -19,18 +19,18 @@ public abstract class Weapon implements Object {
     public Weapon(int damage, int manaCost, int abilityCharge) {
         this.damage = damage;
         this.manaCost = manaCost;
-        this.abilityCharge = 0; // Starts with no ability charge
+        this.abilityCharge = 0; 
 
     }
 
     @Override
     public void use(Entity target) {
         target.takeDamage(damage);
-        abilityCharge++; // Increase ability charge on use
+        abilityCharge++; 
     }
     public void useAbility(Entity targets) {
-        if (getAbilityCharge() >= 3) { // Require 3 ability charges
-            resetAbilityCharge(); // Reset ability charge after use
+        if (getAbilityCharge() >= 3) { 
+            resetAbilityCharge(); 
         } else {
             System.out.println("⚠️ Not enough ability charge! Keep attacking to build it up.");
         }
@@ -44,11 +44,11 @@ public abstract class Weapon implements Object {
         this.abilityCharge = 0;
     }
 
-    //    @Override
-//    public void give(Entity target,Entity giver) {
-//        target.getObject(this.clone());
-//        giver.lost();
-//    }
+    
+
+
+
+
     public int getDamage() {
         return damage;
     }

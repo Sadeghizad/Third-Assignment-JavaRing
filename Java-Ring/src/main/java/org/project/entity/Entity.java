@@ -77,7 +77,7 @@ public abstract class Entity {
     }
 
     public void stun(int duration) {
-        if (stunDuration == 0) { // Prevent re-stunning while already stunned
+        if (stunDuration == 0) { 
             this.stunDuration = duration;
             System.out.println("⚡ " + this.getName() + " is stunned and cannot move for " + duration + " turns!");
         }
@@ -95,7 +95,7 @@ public abstract class Entity {
         }
     }
     public void applyBurn(int damagePerTurn, int duration) {
-        if (burnDuration == 0) { // Prevent stacking
+        if (burnDuration == 0) { 
             this.burnDamage = damagePerTurn;
             this.burnDuration = duration;
             System.out.println("🔥 " + this.getName() + " is now burning!");
@@ -170,6 +170,6 @@ public abstract class Entity {
     public void reduceSuperCooldown() {
         this.superAbilityCooldown --;
     }
-//    Object giveObject();
-//    Object lost();
+
+
 }
