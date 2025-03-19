@@ -142,6 +142,7 @@ public class Combat {
         System.out.println("4️⃣ Weapon Ability (Requires charge)");
         System.out.println("5️⃣ Use HP Flask 🩹");
         System.out.println("6️⃣ Defend 🛡️ (Reduce damage from next attack)");
+        System.out.println("7️⃣ switching weapon ⚔️ (this will have a secret glitch 😈)");
 
         System.out.print("Enter your choice: ");
         boolean attackSuccessful = false;
@@ -218,16 +219,19 @@ public class Combat {
                 case 7:
                     System.out.println("\n🗡️ Choose a weapon to equip:");
                     List<Weapon> inventory = player.getWeaponInventory();
-
                     for (int i = 0; i < inventory.size(); i++) {
                         System.out.println((i + 1) + "️⃣ " + inventory.get(i));
                     }
+                    while (!player.changed) {
+
 
                     System.out.print("Enter your choice: ");
                     int weaponChoice = scanner.nextInt() - 1;
                     scanner.nextLine();
 
                     player.switchWeapon(weaponChoice);
+                    }
+                    player.changed=false;
                     break;
             }
         }

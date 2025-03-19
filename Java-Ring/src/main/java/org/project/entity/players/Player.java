@@ -2,6 +2,7 @@ package org.project.entity.players;
 
 import org.project.entity.Entity;
 import org.project.object.armors.Armor;
+import org.project.object.weapons.Fist;
 import org.project.object.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -13,12 +14,14 @@ public abstract class Player extends Entity{
     private static int playerCount=0;
     private List<Weapon> weaponInventory = new ArrayList<>();
     private static List<Player> Players;
+    public boolean changed=false;
     public Player(String name, int hp, int fp, int mp,int superAbilityCooldown, int flasks, Weapon weapon, Armor armor) {
         super(hp, mp, fp,superAbilityCooldown, weapon,armor);
         this.name = name;
         isAlive = true;
         this.flasks = flasks;
         playerCount++;
+        addWeapon(new Fist());
     }
     public static int getPlayerCount() {
         return playerCount; // Returns total number of players
@@ -48,9 +51,11 @@ public abstract class Player extends Entity{
     public void switchWeapon(int index) {
         if (index >= 0 && index < weaponInventory.size()) {
             this.weapon = weaponInventory.get(index);
-            System.out.println("🔄 You equipped " + weapon.toString() + "!");
+            System.out.println("🔄 You equipped " + weapon.toString().split(" - ")[0] + "!");
+            changed=true;
         } else {
             System.out.println("❌ Invalid weapon selection!");
+            changed=false;
         }
     }
     public List<Weapon> getWeaponInventory() {

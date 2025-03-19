@@ -64,15 +64,19 @@ public class Main {
         switch (choice) {
             case 1:
                 player = new Knight("The Knight of Light", 100, 50, 30, 4, 3, new Sword(), new NoArmor());
+                player.addWeapon(new Sword());
                 break;
             case 2:
                 player = new Wizard("The Arcane Master", 80, 40, 60, 3, 3, new Staff(), new NoArmor());
+                player.addWeapon(new Staff());
                 break;
             case 3:
                 player = new Assassin("The Silent Blade", 90, 50, 40, 3, 3, new Dagger(), new NoArmor());
+                player.addWeapon(new Dagger());
                 break;
             case 4:
                 player = new Cleric("The Divine Guardian", 110, 40, 50, 4, 3, new Mace(), new NoArmor());
+                player.addWeapon(new Mace());
                 break;
             default:
                 System.out.println("❌ Invalid choice! Defaulting to Knight.");
@@ -147,6 +151,7 @@ switch (choice) {
             String response = scanner.nextLine().trim().toLowerCase();
             if (response.equals("yes")) {
                 player.equipWeapon(currentLocation.getWeaponDrop());
+                player.addWeapon(currentLocation.getWeaponDrop());
                 currentLocation.removeWeapon(); // Remove from the location
             } else {
                 System.out.println("❌ You leave the weapon behind.");
