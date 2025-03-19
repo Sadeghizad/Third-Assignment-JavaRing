@@ -1,7 +1,6 @@
 package org.project.location;
 
-import org.project.entity.enemies.Enemy;
-import org.project.entity.enemies.Skeleton;
+import org.project.entity.enemies.*;
 import org.project.object.armors.Armor;
 import org.project.object.armors.NoArmor;
 
@@ -32,15 +31,19 @@ public class Location {
 
 
     private Enemy spawnRandomEnemy(int enemyMaxLevel) {
-        int rand = (int) (Math.random() * enemyMaxLevel);
+        int rand = (int) (Math.random() * enemyMaxLevel) + 1;
 
         switch (rand) {
-            case 0:
-                return new Skeleton();
-            default:
-                System.out.println("An Skeleton is spawned! (fix me)");
-                return new Skeleton();
+            case 1: return new Skeleton();
+            case 2: return new Goblin();
+            case 3: return new Zombie();
+            case 4: return new Golem();
+            case 5: return new Drakola();
+            case 6: return new BlackKnight();
+            case 7: return new Dragon();
+            default: return new Skeleton(); // Fallback in case of errors
         }
+
     }
 
 

@@ -47,7 +47,12 @@ public class Combat {
                 }
             }
 
-            playerAttack(player, selectedEnemy, scanner);
+            if (player.isStunned()) {
+                System.out.println("⚡ You are stunned and cannot move this turn!");
+                player.reduceStunDuration();
+            } else {
+                playerAttack(player, selectedEnemy, scanner);
+            }
 
             // **Remove defeated enemies (Including Resurrection for Skeletons)**
             enemies.removeIf(enemy -> {
@@ -85,11 +90,12 @@ public class Combat {
 
 
             // **Regenerate FP & MP, Reduce Cooldowns**
+            player.handleBurnEffect();
             player.regainFP(5);
             player.fillMana(3);
-            player.reduceSuperCooldown(); // **Reduce cooldown every turn**
-
+            player.reduceSuperCooldown();
             for (Enemy enemy : enemies) {
+                enemy.handleBurnEffect();
                 enemy.regainFP(3);
                 enemy.fillMana(2);
                 enemy.reduceSuperCooldown();
@@ -157,11 +163,7 @@ public class Combat {
 
                 case 3:
                     if (player.getSuperAbilityCooldown() == 0 && player.getFp() >= 25 && player.getMp() >= 20) {
-                        System.out.println("\n⚡ You unleash your ultimate power!");
-                        enemy.takeDamage(player.getWeapon().getDamage() * 2);
-                        player.useStamina(25);
-                        player.useMana(20);
-                        player.setSuperAbilityCooldown(3); // Set cooldown
+                        player.SuperAbility(enemy);
                         attackSuccessful = true;
                     } else if (player.getSuperAbilityCooldown() > 0) {
                         System.out.println("\n❌ Your super ability is on cooldown for " + player.getSuperAbilityCooldown() + " more turns!");
@@ -225,31 +227,27 @@ public class Combat {
                     break;
 
                 case 1:
-                    if (attackingEnemy.getSuperAbilityCooldown() == 0 && attackingEnemy.getFp() >= 15) {
+                    if (attackingEnemy.getSuperAbilityCooldown() == 0) {
                         System.out.println("💥 " + attackingEnemy.getEnemyType() + " unleashes a devastating attack!");
-                        player.takeDamage(attackingEnemy.getWeapon().getDamage() * 2);
-                        attackingEnemy.useStamina(15);
-                        attackingEnemy.setSuperAbilityCooldown(3);
+                        attackingEnemy.abilityAttack(Player.getPlayers());
+                        attackSuccess=true;
+
                     } else {
                         System.out.println(attackingEnemy.getEnemyType() + " tried to use a heavy attack but lacked stamina!");
                     }
                     break;
 
                 case 2:
-                    if (attackingEnemy.getMp() >= 10 && !attackingEnemy.getEnemyType().equals("Skeleton")) {
-                        System.out.println("🔮 " + attackingEnemy.getEnemyType() + " buffs itself!");
-                        attackingEnemy.heal(10);
-                        attackingEnemy.useMana(10);
-                    } else {
-                        System.out.println(attackingEnemy.getEnemyType() + " attempted a buff but lacked MP!");
+                    if (attackingEnemy.getWeapon().getAbilityCharge() >= 3 && player.getFp() >= 20 && player.getMp() >= 25) {
+                        System.out.println("\n⚡ "+attackingEnemy.getEnemyType()+" activate his weapon power!");
+                        attackingEnemy.getWeapon().useAbility(player);
+                        attackSuccess = true;
                     }
                     break;
                 case 3:
                     if (attackingEnemy.getFp() >= 10) { // Defending costs stamina
                         attackingEnemy.defend();
                         attackSuccess = true;
-                    } else {
-                        System.out.println(attackingEnemy.getEnemyType() + " tried to defend but lacked stamina!");
                     }
                     break;
             }

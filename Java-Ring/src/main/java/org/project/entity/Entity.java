@@ -16,6 +16,9 @@ public abstract class Entity {
     private int maxFP;
     private int superAbilityCooldown;
     private boolean isDefending = false;
+    private int burnDamage = 0;
+    private int burnDuration = 0;
+    private int stunDuration = 0;
 
     public Entity(int hp, int mp, int fp,int superAbilityCooldown, Weapon weapon,Armor armor){
         this.hp = hp;
@@ -55,7 +58,9 @@ public abstract class Entity {
     public void useStamina(int stamina) {
         fp-=stamina;
     }
-
+    public void reduceMaxHP(int amount) {
+        this.maxHP -= amount;
+    }
     public void takeDamage(int damage) {
         if(isDefending) {
             System.out.println("\n🛡️ "+this.name+" brace for impact, preparing to defend the next attack!");
@@ -69,6 +74,49 @@ public abstract class Entity {
         }else{
             hp -= damage;
         }
+    }
+
+    public void stun(int duration) {
+        if (stunDuration == 0) { // Prevent re-stunning while already stunned
+            this.stunDuration = duration;
+            System.out.println("⚡ " + this.getName() + " is stunned and cannot move for " + duration + " turns!");
+        }
+    }
+    public boolean isStunned() {
+        return stunDuration > 0;
+    }
+
+    public void reduceStunDuration() {
+        if (stunDuration > 0) {
+            stunDuration--;
+            if (stunDuration == 0) {
+                System.out.println("⚡ " + this.getName() + " recovers from the stun!");
+            }
+        }
+    }
+    public void applyBurn(int damagePerTurn, int duration) {
+        if (burnDuration == 0) { // Prevent stacking
+            this.burnDamage = damagePerTurn;
+            this.burnDuration = duration;
+            System.out.println("🔥 " + this.getName() + " is now burning!");
+        } else {
+            System.out.println("🔥 " + this.getName() + " is already burning!\nnew burning effect would not apply due kind developers hearts!");
+        }
+    }
+    public void handleBurnEffect() {
+        if (burnDuration > 0) {
+            System.out.println("🔥 " + this.getName() + " takes " + burnDamage + " burn damage!");
+            this.takeDamage(burnDamage);
+            burnDuration--;
+
+            if (burnDuration == 0) {
+                System.out.println("🔥 The burn effect on " + this.getName() + " has ended.");
+            }
+        }
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getMaxHP() {
@@ -111,9 +159,7 @@ public abstract class Entity {
     public void attack(Entity target) {
         weapon.use(target);
     }
-    public void abilityAttack(Entity target) {
-        weapon.useAbility(target);
-    }
+
 
     public void defend(){
         this.useStamina(10);

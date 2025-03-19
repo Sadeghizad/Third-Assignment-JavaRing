@@ -2,10 +2,10 @@ package org.project.object.weapons;
 
 import org.project.entity.Entity;
 
-public class Sword extends Weapon {
+public class BrokenSword extends Weapon {
 
-    public Sword() {
-        super(15, 0,0); // Damage: 15, Mana Cost: 0 (basic sword has no mana cost)
+    public BrokenSword() {
+        super(6, 0,0); // Damage: 15, Mana Cost: 0 (basic sword has no mana cost)
     }
 
     @Override
@@ -16,8 +16,7 @@ public class Sword extends Weapon {
 
     public void useAbility(Entity target) {
         if (getAbilityCharge() >= 3) {
-            System.out.println("⚡ unleash a Sword Flurry, heavy striking enemy!");
-            target.takeDamage(getDamage() * 2); // Double damage to all enemies
+            System.out.println("Malfunction of weapon!");
         }
         super.useAbility(target);
     }
@@ -27,17 +26,3 @@ public class Sword extends Weapon {
         return "⚔️ Sword - Damage: " + getDamage() + ", Ability Charge: " + getAbilityCharge();
     }
 }
-
-// extras:
-// axe
-// greatsword
-// dagger
-// wand
-// katana
-// twinblade
-// whip
-// bow
-// cross bow
-// grimmory
-// reaper
-// spear

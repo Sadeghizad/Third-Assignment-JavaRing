@@ -4,16 +4,29 @@ import org.project.entity.Entity;
 import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
+import java.util.List;
+
 public abstract class Player extends Entity{
     private int flasks;
     private boolean isAlive;
+    private static int playerCount=0;
+    private static List<Player> Players;
     public Player(String name, int hp, int fp, int mp,int superAbilityCooldown, int flasks, Weapon weapon, Armor armor) {
         super(hp, mp, fp,superAbilityCooldown, weapon,armor);
         this.name = name;
         isAlive = true;
         this.flasks = flasks;
+        playerCount++;
     }
 
+    public static int getPlayerCount() {
+        return playerCount; // Returns total number of players
+    }
+    public static List<Entity> getPlayers(){
+        return Players;
+    }
+
+    public abstract void SuperAbility(Entity target);
 
     public void equipArmor(Armor newArmor) {
         this.armor = newArmor;
@@ -40,5 +53,8 @@ public abstract class Player extends Entity{
 
     public void useFlask(){
         flasks--;
+    }
+    public void abilityAttack(Entity target) {
+        weapon.useAbility(target);
     }
 }
