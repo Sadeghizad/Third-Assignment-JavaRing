@@ -11,6 +11,7 @@ public abstract class Player extends Entity{
     private int flasks;
     private boolean isAlive;
     private static int playerCount=0;
+    private List<Weapon> weaponInventory = new ArrayList<>();
     private static List<Player> Players;
     public Player(String name, int hp, int fp, int mp,int superAbilityCooldown, int flasks, Weapon weapon, Armor armor) {
         super(hp, mp, fp,superAbilityCooldown, weapon,armor);
@@ -19,7 +20,6 @@ public abstract class Player extends Entity{
         this.flasks = flasks;
         playerCount++;
     }
-
     public static int getPlayerCount() {
         return playerCount; // Returns total number of players
     }
@@ -40,6 +40,22 @@ public abstract class Player extends Entity{
         System.out.println("🤺 You have equipped " + newWeapon);
     }
 
+    public void addWeapon(Weapon weapon) {
+        if (!weaponInventory.contains(weapon)) {
+            weaponInventory.add(weapon);
+        }
+    }
+    public void switchWeapon(int index) {
+        if (index >= 0 && index < weaponInventory.size()) {
+            this.weapon = weaponInventory.get(index);
+            System.out.println("🔄 You equipped " + weapon.toString() + "!");
+        } else {
+            System.out.println("❌ Invalid weapon selection!");
+        }
+    }
+    public List<Weapon> getWeaponInventory() {
+        return weaponInventory;
+    }
 
     public String getName() {
         return name;

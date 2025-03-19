@@ -23,9 +23,9 @@ public class Sword extends Weapon {
     }
 
     @Override
-    public String toString() {
-        return "⚔️ Sword - Damage: " + getDamage() + ", Ability Charge: " + getAbilityCharge();
-    }
+        public String toString() {
+            return "⚔️ Sword - Damage: " + getDamage() + ", Ability Charge: " + getAbilityCharge();
+        }
 }
 
 // extras:

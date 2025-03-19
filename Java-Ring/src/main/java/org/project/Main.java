@@ -63,10 +63,10 @@ public class Main {
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                player = new Knight("The Knight of Light", 100, 50, 30, 4, 3, new Fist(), new NoArmor());
+                player = new Knight("The Knight of Light", 100, 50, 30, 4, 3, new Sword(), new NoArmor());
                 break;
             case 2:
-                player = new Wizard("The Arcane Master", 80, 40, 60, 3, 3, new Fist(), new NoArmor());
+                player = new Wizard("The Arcane Master", 80, 40, 60, 3, 3, new Staff(), new NoArmor());
                 break;
             case 3:
                 player = new Assassin("The Silent Blade", 90, 50, 40, 3, 3, new Dagger(), new NoArmor());

@@ -6,6 +6,7 @@ import org.project.entity.enemies.Skeleton;
 import org.project.entity.players.Player;
 import org.project.location.Location;
 import org.project.object.armors.NoArmor;
+import org.project.object.weapons.Weapon;
 
 import java.util.List;
 import java.util.Random;
@@ -214,6 +215,20 @@ public class Combat {
 
                     default:
                         System.out.println("\n❌ Invalid attack choice!");
+                case 7:
+                    System.out.println("\n🗡️ Choose a weapon to equip:");
+                    List<Weapon> inventory = player.getWeaponInventory();
+
+                    for (int i = 0; i < inventory.size(); i++) {
+                        System.out.println((i + 1) + "️⃣ " + inventory.get(i));
+                    }
+
+                    System.out.print("Enter your choice: ");
+                    int weaponChoice = scanner.nextInt() - 1;
+                    scanner.nextLine();
+
+                    player.switchWeapon(weaponChoice);
+                    break;
             }
         }
     }
