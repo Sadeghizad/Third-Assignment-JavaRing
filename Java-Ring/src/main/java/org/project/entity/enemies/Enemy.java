@@ -1,35 +1,24 @@
 package org.project.entity.enemies;
 
+import org.project.entity.Entity;
+import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
-// TODO: UPDATE IMPLEMENTATION
-public abstract class Enemy {
-    Weapon weapon;
-    private int hp;
-    private int mp;
+import java.util.List;
 
-    public Enemy(int hp, int mp, Weapon weapon) {
-        this.hp = hp;
-        this.mp = mp;
+public abstract class Enemy extends Entity {
+    String enemyType;
+    public Enemy(int hp, int mp, int fp,int superAbilityCooldown, Weapon weapon, Armor armor, String enemyType) {
+        super(hp, mp, fp,superAbilityCooldown, weapon,armor);
+        this.enemyType = enemyType;
+        name=enemyType;
+    }
+    public abstract Enemy clone();
 
-        this.weapon = weapon;
+    public abstract void abilityAttack(List<Entity> target);
+
+    public String getEnemyType() {
+        return enemyType;
     }
 
-    // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
-    @Override
-    public void takeDamage(int damage) {
-        hp -= damage;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public int getMp() {
-        return mp;
-    }
-
-    public Weapon getWeapon() {
-        return weapon;
-    }
 }

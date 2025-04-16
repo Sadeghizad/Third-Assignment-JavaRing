@@ -2,88 +2,88 @@ package org.project.entity.players;
 
 import org.project.entity.Entity;
 import org.project.object.armors.Armor;
+import org.project.object.weapons.Fist;
 import org.project.object.weapons.Weapon;
 
-// TODO: UPDATE IMPLEMENTATION
-public abstract class Player {
-    protected String name;
-    Weapon weapon;
-    Armor armor;
-    private int hp;
-    private int maxHP;
-    private int mp;
-    private int maxMP;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Player(String name, int hp, int mp, Weapon weapon, Armor armor) {
+public abstract class Player extends Entity{
+    private int flasks;
+    private boolean isAlive;
+    private static int playerCount=0;
+    private List<Weapon> weaponInventory = new ArrayList<>();
+    private static List<Player> Players;
+    public boolean changed=false;
+    public Player(String name, int hp, int fp, int mp,int superAbilityCooldown, int flasks, Weapon weapon, Armor armor) {
+        super(hp, mp, fp,superAbilityCooldown, weapon,armor);
         this.name = name;
-        this.hp = hp;
-        this.mp = mp;
-
-        this.weapon = weapon;
-        this.armor = armor;
+        isAlive = true;
+        this.flasks = flasks;
+        playerCount++;
+        addWeapon(new Fist());
+    }
+    public static int getPlayerCount() {
+        return playerCount; 
+    }
+    public static List<Entity> getPlayers() {
+        return new ArrayList<>(Players); 
     }
 
-    @Override
-    public void attack(Entity target) {
-        target.takeDamage(weapon.getDamage());
+
+    public abstract void SuperAbility(Entity target);
+
+    public void equipArmor(Armor newArmor) {
+        this.armor = newArmor;
+        System.out.println("🛡️ You have equipped " + newArmor);
     }
 
-    @Override
-    public void defend() {
-        // TODO: (BONUS) IMPLEMENT A DEFENSE METHOD FOR SHIELDS
+    public void equipWeapon(Weapon newWeapon) {
+        this.weapon = newWeapon;
+        System.out.println("🤺 You have equipped " + newWeapon);
     }
 
-    // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
-    @Override
-    public void takeDamage(int damage) {
-        hp -= damage - armor.getDefense();
-    }
-
-    @Override
-    public void heal(int health) {
-        hp += health;
-        if (hp > maxHP) {
-            hp = maxHP;
+    public void addWeapon(Weapon weapon) {
+        if (!weaponInventory.contains(weapon)) {
+            weaponInventory.add(weapon);
         }
     }
-
-    @Override
-    public void fillMana(int mana) {
-        mp += mana;
-        if (mp > maxMP) {
-            mp = maxMP;
+    public void switchWeapon(int index) {
+        if (index >= 0 && index < weaponInventory.size()) {
+            this.weapon = weaponInventory.get(index);
+            System.out.println("🔄 You equipped " + weapon.toString().split(" - ")[0] + "!");
+            changed=true;
+        } else {
+            System.out.println("❌ Invalid weapon selection!");
+            changed=false;
         }
     }
-
+    public List<Weapon> getWeaponInventory() {
+        return weaponInventory;
+    }
 
     public String getName() {
         return name;
     }
 
-    public int getHp() {
-        return hp;
+    public boolean isAlive() {
+        return isAlive;
+    }
+    public void die() {
+        isAlive = false;
+    }
+    public boolean hasFlask(){
+        return flasks > 0;
     }
 
-    @Override
-    public int getMaxHP() {
-        return maxHP;
+    public int getFlasks() {
+        return flasks;
     }
 
-    public int getMp() {
-        return mp;
+    public void useFlask(){
+        flasks--;
     }
-
-    @Override
-    public int getMaxMP() {
-        return maxMP;
+    public void abilityAttack(Entity target) {
+        weapon.useAbility(target);
     }
-
-    public Weapon getWeapon() {
-        return weapon;
-    }
-
-    public Armor getArmor() {
-        return armor;
-    }
-
 }

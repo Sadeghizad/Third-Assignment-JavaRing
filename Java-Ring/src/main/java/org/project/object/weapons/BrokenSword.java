@@ -2,10 +2,10 @@ package org.project.object.weapons;
 
 import org.project.entity.Entity;
 
-public class Sword extends Weapon {
+public class BrokenSword extends Weapon {
 
-    public Sword() {
-        super(15, 0,0); 
+    public BrokenSword() {
+        super(6, 0,0); 
     }
 
     @Override
@@ -16,27 +16,13 @@ public class Sword extends Weapon {
 
     public void useAbility(Entity target) {
         if (getAbilityCharge() >= 3) {
-            System.out.println("⚡ unleash a Sword Flurry, heavy striking enemy!");
-            target.takeDamage(getDamage() * 2); 
+            System.out.println("Malfunction of weapon!");
         }
         super.useAbility(target);
     }
 
     @Override
-        public String toString() {
-            return "⚔️ Sword - Damage: " + getDamage() + ", Ability Charge: " + getAbilityCharge();
-        }
+    public String toString() {
+        return "⚔️ Sword - Damage: " + getDamage() + ", Ability Charge: " + getAbilityCharge();
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,17 +3,17 @@ package org.project.object.armors;
 import org.project.entity.Entity;
 import org.project.entity.players.Player;
 
-public class KnightArmor extends Armor {
+public class TornedLeatherArmor extends Armor {
 
-    public KnightArmor() {
-        super(40, 200); 
+    public TornedLeatherArmor() {
+        super(10, 40); 
     }
 
     @Override
     public void use(Entity target) {
         if (target instanceof Player) {
             ((Player) target).equipArmor(this);
-            System.out.println("🛡️ You have equipped Knight Armor.");
+            System.out.println("🛡️ You have equipped Torned Leather Armor.");
         } else {
             System.out.println("⚠️ Only players can equip armor!");
         }
@@ -24,9 +24,3 @@ public class KnightArmor extends Armor {
         return "🛡️ Knight Armor - Defense: " + getDefense() + ", Durability: " + getDurability();
     }
 }
-
-
-
-
-
-

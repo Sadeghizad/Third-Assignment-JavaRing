@@ -38,8 +38,8 @@ Through this assignment, you will:
 - You must implement the class hierarchy as shown in the diagram below:  
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/e71cab82-5745-4898-8eb1-a5da0bf94a0a" width="100%">
-  <img src="https://github.com/user-attachments/assets/6849d23e-3021-458b-94a7-a32f6d98e63e" width="100%">
+  <img src="https:
+  <img src="https:
 </div>
 <br />
 
